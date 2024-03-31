@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
     public bool CanMove { get; set; } = true;
@@ -16,9 +17,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 _moveInput = Vector2.zero;
     private Vector2 _velocity = Vector2.zero;
 
-    private void Start()
+    public void Init(Rigidbody2D rb)
     {
-        _rb = GetComponent<Rigidbody2D>();
+        _rb = rb;
     }
 
     private void FixedUpdate()

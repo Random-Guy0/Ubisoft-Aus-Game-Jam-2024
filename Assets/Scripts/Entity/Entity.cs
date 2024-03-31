@@ -23,7 +23,7 @@ namespace Jam.Entities
         public BoxCollider2D BoxCollider { get { return boxCollider; } set { boxCollider = value; } }
         public SpriteRenderer SpriteRenderer { get { return spriteRenderer; } set { spriteRenderer = value; } }
         public Animator Animator { get { return animator; } set { animator = value; } }
-        private void Awake()
+        protected virtual void Awake()
         {
             rigidBody = GetComponent<Rigidbody2D>();
             boxCollider = GetComponent<BoxCollider2D>();
