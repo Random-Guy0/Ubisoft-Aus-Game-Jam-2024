@@ -6,22 +6,29 @@ using Jam.Entities;
 
 namespace Jam.StateMachine
 {
-
+    /// <summary>
+    /// Base class for all state machine controllers
+    /// </summary>
+    /// <remarks>
+    /// Derived controllers define internal variables and override the currentState property.
+    /// </remarks>
     [RequireComponent(typeof(Entity))]
-    public class StateMachineController : MonoBehaviour
+    public abstract class StateMachineController : MonoBehaviour
     {
-        [SerializeField]
-        private StateMachine stateMachine;
+        /// <summary>
+        /// Entry state of the state machine
+        /// </summary>
+        protected virtual State entryState { get { return null; } }
+       
+        
+        protected Entity entity;
+        protected State currentState = null;
 
-        private Entity entity;
-        private State currentState = null;
-
-
-
-        private void Awake()
+        protected virtual void Awake()
         {
             entity = GetComponent<Entity>();
-            currentState = stateMachine.EntryState;
+
+            currentState = entryState;
 
             // Make sure the state machine has an entry point
             if(currentState == null)
@@ -29,18 +36,19 @@ namespace Jam.StateMachine
                 Debug.LogError("STATE_MACHINE_CONTROLLER: provided state machine has no entry point!", this.gameObject);
             }
 
+            currentState.OnInit(this, entity);
         }
 
         // Start is called before the first frame update
-        void Start()
+        protected virtual void Start()
         {
-            currentState.OnEnter(this, entity);
+            currentState.OnEnter();
         }
 
         // Update is called once per frame
-        void Update()
+        protected virtual void Update()
         {
-            currentState.OnUpdate(this, entity);
+            currentState.OnUpdate();
         }
 
         /// <summary>
@@ -49,9 +57,10 @@ namespace Jam.StateMachine
         /// <param name="state"></param>
         public void ChangeState(State state)
         {
-            currentState.OnExit(this, entity);
+            currentState.OnExit();
             currentState = state;
-            currentState.OnEnter(this, entity);
+            currentState.OnInit(this, entity);
+            currentState.OnEnter();
         }
 
         /// <summary>
@@ -60,7 +69,7 @@ namespace Jam.StateMachine
         /// <param name="notification"></param>
         public void NotifyState(Notification notification)
         {
-            currentState.OnNotify(this, entity, notification);
+            currentState.OnNotify(notification);
         }
 
     }
