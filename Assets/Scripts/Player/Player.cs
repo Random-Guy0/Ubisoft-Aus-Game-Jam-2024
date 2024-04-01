@@ -3,19 +3,23 @@ using System.Collections;
 using System.Collections.Generic;using Jam.Entities;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerController))]
-public class Player : Entity
+namespace Jam.Player
 {
-    public PlayerController PlayerController { get; set; }
 
-    protected override void Awake()
+    [RequireComponent(typeof(PlayerController))]
+    public class Player : Entity
     {
-        base.Awake();
-        PlayerController = GetComponent<PlayerController>();
-    }
+        public PlayerController PlayerController { get; set; }
 
-    private void Start()
-    {
-        PlayerController.Init(RigidBody);
+        protected override void Awake()
+        {
+            base.Awake();
+            PlayerController = GetComponent<PlayerController>();
+        }
+
+        private void Start()
+        {
+            PlayerController.Init(RigidBody);
+        }
     }
 }

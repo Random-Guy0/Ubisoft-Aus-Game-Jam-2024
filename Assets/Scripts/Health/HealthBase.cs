@@ -3,31 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class HealthBase : MonoBehaviour, IDamageable
-{ 
-    public int Health { get; private set; }
-
-    [SerializeField] private int maxHealth;
-
-    private void Awake()
+namespace Jam.Health
+{
+    public abstract class HealthBase : MonoBehaviour, IDamageable
     {
-        Health = maxHealth;
-    }
+        public int Health { get; private set; }
 
-    public void TakeDamage(int damageAmount)
-    {
-        Health -= damageAmount;
-        
-        OnTakeDamage?.Invoke(damageAmount);
+        [SerializeField] private int maxHealth;
 
-        if (Health <= 0)
+        private void Awake()
         {
-            Health = 0;
-            Die();
+            Health = maxHealth;
         }
+
+        public void TakeDamage(int damageAmount)
+        {
+            Health -= damageAmount;
+
+            OnTakeDamage?.Invoke(damageAmount);
+
+            if (Health <= 0)
+            {
+                Health = 0;
+                Die();
+            }
+        }
+
+        public event IDamageable.OnTakeDamageHandler OnTakeDamage;
+
+        protected abstract void Die();
     }
-
-    public event IDamageable.OnTakeDamageHandler OnTakeDamage;
-
-    protected abstract void Die();
 }

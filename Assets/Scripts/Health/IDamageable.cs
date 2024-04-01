@@ -1,10 +1,13 @@
-public interface IDamageable
+namespace Jam.Health
 {
-    public int Health { get; }
+    public interface IDamageable
+    {
+        public int Health { get; }
 
-    public void TakeDamage(int damageAmount);
-    
-    public delegate void OnTakeDamageHandler(int damageAmount);
+        public void TakeDamage(int damageAmount);
 
-    public event OnTakeDamageHandler OnTakeDamage;
+        public delegate void OnTakeDamageHandler(int damageAmount);
+
+        public event OnTakeDamageHandler OnTakeDamage;
+    }
 }

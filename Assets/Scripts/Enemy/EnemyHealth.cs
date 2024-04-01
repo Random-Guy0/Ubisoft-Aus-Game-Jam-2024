@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Jam.Health;
 using UnityEngine;
 
-public class EnemyHealth : HealthBase
+namespace Jam.Enemies
 {
-    //TODO: implement enemy death
-    protected override void Die()
+    public class EnemyHealth : HealthBase
     {
-        
+        //TODO: implement enemy death
+        protected override void Die()
+        {
+
+        }
     }
 }
