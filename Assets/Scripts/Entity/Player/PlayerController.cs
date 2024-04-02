@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-namespace Jam.Player
+
+namespace Jam.Entities.Player
 {
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour
@@ -15,13 +16,14 @@ namespace Jam.Player
         [SerializeField] private float speed = 5f;
         [SerializeField] [Range(0f, 1f)] private float acceleration = 0.4f;
 
-        private Rigidbody2D _rb;
+        private Player entity;
         private Vector2 _moveInput = Vector2.zero;
         private Vector2 _velocity = Vector2.zero;
 
-        public void Init(Rigidbody2D rb)
+
+        private void Awake()
         {
-            _rb = rb;
+            entity = GetComponent<Player>();
         }
 
         private void FixedUpdate()
@@ -56,7 +58,7 @@ namespace Jam.Player
                 }
             }
 
-            _rb.velocity = _velocity;
+            entity.RigidBody.velocity = _velocity;
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -65,3 +67,6 @@ namespace Jam.Player
         }
     }
 }
+
+
+

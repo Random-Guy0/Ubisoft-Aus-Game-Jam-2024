@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Jam.Health
+using Jam.Interfaces;
+
+namespace Jam.Entities
 {
     public abstract class HealthBase : MonoBehaviour, IDamageable
     {
