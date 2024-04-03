@@ -51,6 +51,9 @@ namespace Jam.StateMachine
         {
             protected T controller;
             protected E entity;
+            
+            // Time at which this state was entered.
+            private float enterTime;
 
             /// <summary>
             /// Call this before any other methods to supply context.
@@ -61,7 +64,18 @@ namespace Jam.StateMachine
             {
                 this.controller = (T)controller;
                 this.entity = (E)entity;
+                enterTime = Time.time;
             }
+
+            /// <summary>
+            /// Time passed since this state was entered.
+            /// </summary>
+            /// <returns></returns>
+            protected float GetTime()
+            {
+                return Time.time - enterTime;
+            }
+
 
         }
 

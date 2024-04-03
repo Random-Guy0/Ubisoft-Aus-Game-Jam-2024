@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.AI;
+
 using Jam.Entities;
 
 namespace Jam.StateMachine
@@ -12,7 +14,6 @@ namespace Jam.StateMachine
     /// <remarks>
     /// Derived controllers define internal variables and override the currentState property.
     /// </remarks>
-    [RequireComponent(typeof(Entity))]
     public abstract class StateMachineController : MonoBehaviour
     {
         /// <summary>
@@ -24,8 +25,12 @@ namespace Jam.StateMachine
         protected Entity entity;
         protected State currentState = null;
 
+
+
+
         protected virtual void Awake()
         {
+            
             entity = GetComponent<Entity>();
 
             currentState = entryState;
