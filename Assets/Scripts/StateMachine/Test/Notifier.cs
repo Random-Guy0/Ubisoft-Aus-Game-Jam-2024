@@ -11,6 +11,7 @@ public class Notifier : MonoBehaviour
     void Start()
     {
         healthSystem = GetComponent<HealthBase>();
+
     }
 
     // Update is called once per frame

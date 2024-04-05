@@ -12,6 +12,15 @@ namespace Jam.Entities
     [RequireComponent(typeof(NavMeshAgent))]
     public class NavEntity : Entity 
     {
+        // Predefined nav areas
+        public static int WALKABLE = 0;
+        public static int SIDEWALK = 3;
+        public static int ROAD = 4;
+
+
+
+
+
         protected NavMeshAgent agent;
 
 
@@ -41,13 +50,15 @@ namespace Jam.Entities
             NavMeshHit hit;
             Vector2 pos;
 
+            Debug.Log(NavMesh.GetAreaFromName("Walkable"));
+
             int maxIter = 100, i = 0;
             do
             {
                 pos = (Vector2)this.transform.position + Random.insideUnitCircle * radius;
                 i++;
             }
-            while (!NavMesh.SamplePosition(pos, out hit, sampleRadius, NavMesh.AllAreas) && i < maxIter);
+            while (!NavMesh.SamplePosition(pos, out hit, sampleRadius, 1 << SIDEWALK) && i < maxIter);
 
 
             return hit.position;

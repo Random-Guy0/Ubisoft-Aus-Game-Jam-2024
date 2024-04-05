@@ -39,6 +39,11 @@ namespace Jam.StateMachine.Tosser
         public override void OnNotify(Notification notification)
         {
 
+            if(notification is Notification_Jaywalk)
+            {
+                controller.ChangeState(new State_Tosser_Jaywalk(notification as Notification_Jaywalk));
+            }
+            
         }
 
         public override void OnUpdate()
@@ -62,9 +67,6 @@ namespace Jam.StateMachine.Tosser
                     {
                         controller.ChangeState(new State_Tosser_Idle());
                     }
-
-
-
 
                 }
 
