@@ -46,7 +46,7 @@ namespace Jam.Player
             }
 
             //decelerate and stop
-            if (!moving)
+            if (!moving || !CanMove)
             {
                 _velocity = Vector2.Lerp(_velocity, Vector2.zero, acceleration);
                 Vector2 absoluteVelocity = _velocity.Abs();
@@ -61,7 +61,18 @@ namespace Jam.Player
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            _moveInput = context.ReadValue<Vector2>();
+            Vector2 newMoveInput = context.ReadValue<Vector2>();
+            
+            if (Mathf.Abs(newMoveInput.x) > Mathf.Abs(_moveInput.x))
+            {
+                newMoveInput.y = 0;
+            }
+            else if (Mathf.Abs(newMoveInput.y) > Mathf.Abs(_moveInput.y))
+            {
+                newMoveInput.x = 0;
+            }
+
+            _moveInput = newMoveInput;
         }
     }
 }

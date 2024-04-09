@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2977316610380073775}
   - component: {fileID: 6591063542035015810}
   - component: {fileID: 1822782852459022811}
+  - component: {fileID: 8055915376853859542}
   - component: {fileID: 7088699644188730061}
   - component: {fileID: 7033633652610630269}
   - component: {fileID: 8569916648021945625}
@@ -116,6 +117,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   acceleration: 0.4
+--- !u!114 &8055915376853859542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2456547037913180953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d73b7360a2dd1854eab0351497413ffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attacks:
+  - {fileID: 11400000, guid: ffc1180b8e560ca49a8f7e5f102c2f37, type: 2}
 --- !u!114 &7088699644188730061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +158,18 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 8055915376853859542}
+        m_TargetAssemblyTypeName: Jam.Entities.Player.PlayerAttackHandler, Assembly-CSharp
+        m_MethodName: OnDirectionInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1822782852459022811}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnMove
@@ -157,6 +184,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d91df68a-d4ad-444d-a05f-b7ddb5283859
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8055915376853859542}
+        m_TargetAssemblyTypeName: Jam.Entities.Player.PlayerAttackHandler, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2f4d3954-d4a0-4d17-a16d-3e1b1e6f9219
+    m_ActionName: Player/Attack[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
