@@ -30,7 +30,10 @@ namespace Jam.StateMachine.Walking_Tosser
 
         public override void OnNotify(Notification notification)
         {
-           
+            if(notification is Notification_Attacked)
+            {
+                controller.ChangeState(new State_Walking_Tosser_Attacked());
+            }
         }
 
         public override void OnUpdate()

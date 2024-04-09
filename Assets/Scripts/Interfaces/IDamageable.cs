@@ -1,4 +1,4 @@
-namespace Jam.Health
+namespace Jam.Interfaces
 {
     public interface IDamageable
     {

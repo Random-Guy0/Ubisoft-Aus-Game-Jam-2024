@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Jam.Health;
+using Jam.Interfaces;
 using UnityEngine;
 
 namespace Jam.AttackSystem

@@ -30,7 +30,7 @@ namespace Jam.AttackSystem
             set => _selectedAttack = Instantiate<AttackStats>(value);
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             SelectedAttack = attacks[0];
         }

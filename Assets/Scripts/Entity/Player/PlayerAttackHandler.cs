@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Jam.AttackSystem;
-using Jam.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,16 +10,20 @@ namespace Jam.Entities.Player
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerAttackHandler : AttackHandler
     {
-        private PlayerController _playerController;
-        private PlayerInput _playerInput;
+        private Player _entity;
 
-        public void Init(PlayerController playerController)
+        protected override void Awake()
         {
-            _playerController = playerController;
+            base.Awake();
+            _entity = GetComponent<Player>();
+        }
+
+        private void Start()
+        {
             AttackDirection = Vector2.right;
             AttackOrigin = transform.position;
         }
-        
+
         public void OnAttack(InputAction.CallbackContext context)
         {
             if (context.performed)
@@ -50,12 +53,12 @@ namespace Jam.Entities.Player
 
         protected override void BeforeAttack()
         {
-            _playerController.CanMove = false;
+            _entity.PlayerController.CanMove = false;
         }
 
         protected override void AfterAttack()
         {
-            _playerController.CanMove = true;
+            _entity.PlayerController.CanMove = true;
         }
 
         private void Update()
