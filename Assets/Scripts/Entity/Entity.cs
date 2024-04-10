@@ -13,10 +13,10 @@ namespace Jam.Entities
     [RequireComponent(typeof(Animator))]
     public class Entity : MonoBehaviour
     {
-        private Rigidbody2D rigidBody;
-        private BoxCollider2D boxCollider;
-        private SpriteRenderer spriteRenderer;
-        private Animator animator;
+        protected Rigidbody2D rigidBody;
+        protected BoxCollider2D boxCollider;
+        protected SpriteRenderer spriteRenderer;
+        protected Animator animator;
 
 
         public Rigidbody2D RigidBody{ get { return rigidBody; } set { rigidBody = value; } }

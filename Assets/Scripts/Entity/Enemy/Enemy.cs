@@ -9,11 +9,9 @@ namespace Jam.Entities.Enemy
     /// <summary>
     /// Base class for all attackable enemy entities
     /// </summary>
-    public abstract class Enemy : Entity
+    public abstract class Enemy : NavEntity
     {
 
-        [SerializeField]
-        private StateMachineController controller;
 
 
 

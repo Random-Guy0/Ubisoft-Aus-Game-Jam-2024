@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Jam.StateMachine.Walking_Tosser
 {
@@ -14,6 +15,7 @@ namespace Jam.StateMachine.Walking_Tosser
 
         private bool tossed = false;
         private float tossDelay = 3.0f;
+
 
         public Vector2 Direction { get; set; } = Vector2.right;
         public float Speed { get { return speed; } }
@@ -38,6 +40,7 @@ namespace Jam.StateMachine.Walking_Tosser
         protected override void Awake()
         {
             speed = Random.Range(minSpeed, maxSpeed);
+
             base.Awake();
         }
 
