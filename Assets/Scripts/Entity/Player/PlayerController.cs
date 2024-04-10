@@ -31,6 +31,11 @@ namespace Jam.Entities.Player
             Move();
         }
 
+        private void Update()
+        {
+            Animate(_moveInput);
+        }
+
         private void Move()
         {
             bool moving = _moveInput != Vector2.zero;
@@ -75,6 +80,17 @@ namespace Jam.Entities.Player
             }
 
             _moveInput = newMoveInput;
+        }
+
+        private void Animate(Vector2 movement)
+        {
+            if (!CanMove)
+            {
+                movement = Vector2.zero;
+            }
+            
+            _entity.Animator.SetFloat("MoveX", movement.x);
+            _entity.Animator.SetFloat("MoveY", movement.y);
         }
     }
 }
