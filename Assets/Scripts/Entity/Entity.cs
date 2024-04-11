@@ -37,6 +37,9 @@ namespace Jam.Entities
 
             rigidBody.constraints |= RigidbodyConstraints2D.FreezeRotation;
             gameObject.layer = LAYER_ENTITY;
+
+
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
         }
     }
 

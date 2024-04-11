@@ -26,7 +26,7 @@ namespace Jam.StateMachine.Tosser
 
             Vector2 dir = Random.insideUnitCircle.normalized;
 
-            velocity = entity.RigidBody.velocity.magnitude * velocityMultiplier;
+            velocity = controller.Speed * velocityMultiplier;
 
 
             panicDuration = Random.Range(3.0f, 5.0f);
@@ -41,6 +41,10 @@ namespace Jam.StateMachine.Tosser
 
         public override void OnNotify(Notification notification)
         {
+            if(notification is Notification_HealthZero)
+            {
+                controller.ChangeState(new State_Tosser_Leave());
+            }
 
         }
 

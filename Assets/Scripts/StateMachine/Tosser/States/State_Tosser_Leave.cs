@@ -26,7 +26,9 @@ namespace Jam.StateMachine.Tosser
 
         public override void OnNotify(Notification notification)
         {
-    
+
+          
+
         }
 
         public override void OnUpdate()

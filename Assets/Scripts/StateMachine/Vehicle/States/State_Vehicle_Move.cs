@@ -32,6 +32,19 @@ namespace Jam.StateMachine.Vehicle
         public override void OnUpdate()
         {
             entity.RigidBody.velocity = controller.Direction * Mathf.SmoothDamp(entity.RigidBody.velocity.magnitude, controller.MaxVelocity, ref dampVelocity, 0.6f);
+
+
+            float dist = (controller.player.transform.position - controller.transform.position).sqrMagnitude;
+            if (dist <= 0.1f)
+            {
+                controller.audioSource.volume = 1.0f;
+            }
+            else
+            {
+                controller.audioSource.volume = Mathf.Max(0.1f, controller.soundRadius / dist);
+            }
+
+
         }
     }
 

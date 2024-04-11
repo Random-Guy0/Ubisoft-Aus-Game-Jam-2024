@@ -17,8 +17,6 @@ namespace Jam.StateMachine.Tosser
         {
             idleDuration = Random.Range(idleDurationRange[0], idleDurationRange[1]);
             entity.RigidBody.velocity = Vector2.zero;
-
-            Debug.Log("Tosser: Idle", entity.gameObject);
         }
 
         public override void OnExit()
@@ -31,6 +29,11 @@ namespace Jam.StateMachine.Tosser
             if(notification is Notification_Attacked)
             {
                 controller.ChangeState(new State_Tosser_Attacked());
+            }
+
+            if (notification is Notification_HealthZero)
+            {
+                controller.ChangeState(new State_Tosser_Leave());
             }
 
 

@@ -18,8 +18,6 @@ namespace Jam.StateMachine.Tosser
             entity.RigidBody.velocity = Vector2.zero;
             tossDuration = Random.Range(tossDurationRange[0], tossDurationRange[1]);
 
-            Debug.Log("Tosser: Toss", entity.gameObject);
-
         }
 
         public override void OnExit()
@@ -32,6 +30,11 @@ namespace Jam.StateMachine.Tosser
             if (notification is Notification_Attacked)
             {
                 controller.ChangeState(new State_Tosser_Attacked());
+            }
+
+            if (notification is Notification_HealthZero)
+            {
+                controller.ChangeState(new State_Tosser_Leave());
             }
         }
 

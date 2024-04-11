@@ -13,8 +13,6 @@ namespace Jam.StateMachine.Walking_Tosser
         public override void OnEnter()
         {
             entity.RigidBody.velocity = Vector2.zero;
-
-            Debug.Log("Imma toss some trash", entity.gameObject);
         }
 
         public override void OnExit()
@@ -28,6 +26,13 @@ namespace Jam.StateMachine.Walking_Tosser
            {
                 controller.ChangeState(new State_Walking_Tosser_Attacked());
            }
+
+            if (notification is Notification_HealthZero)
+            {
+                controller.Tossed = true;
+                controller.ChangeState(new State_Walking_Tosser_Walk());
+            }
+
         }
 
         public override void OnUpdate()
@@ -36,7 +41,6 @@ namespace Jam.StateMachine.Walking_Tosser
             if(GetTime() > controller.TossDelay)
             {
                 controller.Tossed = true;
-                Debug.Log("I tossed", entity.gameObject);
                 controller.TossTrash();
 
                 controller.ChangeState(new State_Walking_Tosser_Walk());

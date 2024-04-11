@@ -18,7 +18,9 @@ namespace Jam.StateMachine.Walking_Tosser
         private bool tossed = false;
         private float tossDelay = 3.0f;
 
-        public float Speed { get { return speed; } }
+        public float Multiplier = 1.0f;
+
+        public float Speed { get { return speed; } set { speed = value; } }
         public bool Tossed { get { return tossed; } set { tossed = value; } }
 
         public float TossDelay { get { return tossDelay; } }

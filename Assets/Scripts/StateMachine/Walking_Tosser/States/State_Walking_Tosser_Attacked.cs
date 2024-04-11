@@ -10,24 +10,23 @@ namespace Jam.StateMachine.Walking_Tosser
 
     public class State_Walking_Tosser_Attacked : State<StateMachineController_Walking_Tosser, Entity>
     {
-        float velocityMultiplier = 1.2f;
+        float velocityMultiplier = 1.4f;
         float velocity;
 
         float panicDuration;
 
   
 
-        float panicInterval = 0.3f;
+        float panicInterval = 0.15f;
         float panicTime = 0.0f;
 
         public override void OnEnter()
         {
-            Debug.Log("Imma panic");
 
             Vector2 dir = Random.insideUnitCircle.normalized;
 
-            velocity = entity.RigidBody.velocity.magnitude * velocityMultiplier;
-
+            velocity = controller.Speed * velocityMultiplier;
+            
 
             panicDuration = Random.Range(2.0f, 4.0f);
 
@@ -41,6 +40,12 @@ namespace Jam.StateMachine.Walking_Tosser
 
         public override void OnNotify(Notification notification)
         {
+            if (notification is Notification_HealthZero)
+            {
+                controller.Tossed = true;
+                controller.Multiplier = 1.8f;
+                controller.ChangeState(new State_Walking_Tosser_Walk());
+            }
 
         }
 
