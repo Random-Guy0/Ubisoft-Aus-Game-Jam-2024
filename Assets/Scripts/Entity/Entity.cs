@@ -16,6 +16,7 @@ namespace Jam.Entities
         public const int LAYER_PLAYER = 6;
         public const int LAYER_ENEMY = 7;
         public const int LAYER_ENTITY = 8;
+        public const int LAYER_TRASH = 9;
 
 
         protected Rigidbody2D rigidBody;

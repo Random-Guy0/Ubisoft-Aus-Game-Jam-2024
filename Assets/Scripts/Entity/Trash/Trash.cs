@@ -15,6 +15,12 @@ namespace Jam.Entities.Trash
         private bool _grabbed = false;
         private Transform _grabber;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            gameObject.layer = LAYER_TRASH;
+        }
+
         private void Start()
         {
             int randomSprite = Random.Range(0, trashSprites.Length);
@@ -25,12 +31,15 @@ namespace Jam.Entities.Trash
         {
             _grabbed = true;
             _grabber = grabber;
+            RigidBody.velocity = Vector2.zero;
+            RigidBody.bodyType = RigidbodyType2D.Static;
         }
 
         public void Throw(Vector2 direction)
         {
+            RigidBody.bodyType = RigidbodyType2D.Dynamic;
             _grabbed = false;
-            RigidBody.AddForce(direction * throwForce);
+            RigidBody.AddForce(direction * throwForce, ForceMode2D.Impulse);
         }
 
         public void HideBehindPlayer()

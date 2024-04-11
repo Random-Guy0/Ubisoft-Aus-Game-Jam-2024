@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6591063542035015810}
   - component: {fileID: 1822782852459022811}
   - component: {fileID: 8055915376853859542}
+  - component: {fileID: 4679530934460638410}
   - component: {fileID: 7088699644188730061}
   - component: {fileID: 7033633652610630269}
   - component: {fileID: 8569916648021945625}
@@ -131,6 +132,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attacks:
   - {fileID: 11400000, guid: ffc1180b8e560ca49a8f7e5f102c2f37, type: 2}
+--- !u!114 &4679530934460638410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2456547037913180953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d3cfe434efa4f88b7d590e0a192a8b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabDistance: 1
+  grabLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &7088699644188730061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +217,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2f4d3954-d4a0-4d17-a16d-3e1b1e6f9219
     m_ActionName: Player/Attack[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4679530934460638410}
+        m_TargetAssemblyTypeName: Jam.Entities.Player.PlayerTrashHandler, Assembly-CSharp
+        m_MethodName: OnInteractWithTrash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9e56c8f0-bddb-4020-840a-0c43a8bb0787
+    m_ActionName: Player/InteractWithTrash[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

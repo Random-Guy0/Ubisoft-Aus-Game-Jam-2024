@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: PlayerAttack
   m_EditorClassIdentifier: 
   <Damage>k__BackingField: 5
-  <AttackStartDelay>k__BackingField: 0.3
-  <AttackDuration>k__BackingField: 0.5
-  <AttackEndDelay>k__BackingField: 0.2
+  <AttackStartDelay>k__BackingField: 0
+  <AttackDuration>k__BackingField: 0.1
+  <AttackEndDelay>k__BackingField: 0
   <OriginOffset>k__BackingField: 0.5
   <AttackDistance>k__BackingField: 1
   <LayerMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
