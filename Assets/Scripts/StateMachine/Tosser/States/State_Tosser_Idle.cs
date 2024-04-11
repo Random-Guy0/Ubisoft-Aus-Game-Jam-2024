@@ -9,7 +9,7 @@ namespace Jam.StateMachine.Tosser
 {
     public class State_Tosser_Idle : State<StateMachineController_Tosser, Entity>
     {
-        private float[] idleDurationRange = { 2.0f, 6.0f };
+        private float[] idleDurationRange = { 1.0f, 2.0f };
 
         private float idleDuration;
 
@@ -28,6 +28,11 @@ namespace Jam.StateMachine.Tosser
 
         public override void OnNotify(Notification notification)
         {
+            if(notification is Notification_Attacked)
+            {
+                controller.ChangeState(new State_Tosser_Attacked());
+            }
+
 
         }
 
@@ -36,31 +41,8 @@ namespace Jam.StateMachine.Tosser
             if(GetTime() > idleDuration)
             {
 
-                if (controller.ShouldForceToss())
-                {
-                    // Force transition to toss
-                    controller.ChangeState(new State_Tosser_Toss());
-                    
-                }
-                else
-                {
-                    // Otherwise randomise.
-                    if (controller.ShouldTossByRandom(0f))
-                    {
-
-                    }
-                    else
-                    {
-                        controller.ChangeState(new State_Tosser_Move());
-                        controller.CurrentMoveTransitionCount++;
-                    }
-
-
-
-                }
-
-
-
+                controller.ChangeState(new State_Tosser_Move());
+                controller.CurrentMoveTransitionCount++;
 
             }
 

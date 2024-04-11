@@ -33,6 +33,12 @@ namespace Jam.Entities
             // Disable 3D-specific configurations from navmesh
             agent.updateRotation = false;
             agent.updateUpAxis = false;
+
+            agent.acceleration = 1e10F; // Basically infinity
+            agent.stoppingDistance = 0.1f;
+            agent.radius = 0.1f;
+
+            gameObject.layer = LAYER_ENEMY;
         }
 
 
@@ -45,17 +51,17 @@ namespace Jam.Entities
         /// <param name="radius"></param>
         /// <param name="sampleRadius">Maximum radius allowed for sampling</param>
         /// <returns></returns>
-        public virtual Vector2 GetSampledPosition(float radius, float sampleRadius = 1.0f)
+        public virtual Vector2 GetSampledPosition(float radius, float minRadius= 0f, float sampleRadius= 1.0f)
         {
             NavMeshHit hit;
             Vector2 pos;
 
-            Debug.Log(NavMesh.GetAreaFromName("Walkable"));
 
             int maxIter = 100, i = 0;
             do
             {
-                pos = (Vector2)this.transform.position + Random.insideUnitCircle * radius;
+                float mag = Random.Range(minRadius, radius);
+                pos = (Vector2)this.transform.position + Random.insideUnitCircle.normalized * mag;
                 i++;
             }
             while (!NavMesh.SamplePosition(pos, out hit, sampleRadius, 1 << SIDEWALK) && i < maxIter);

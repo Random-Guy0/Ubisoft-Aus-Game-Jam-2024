@@ -30,6 +30,10 @@ namespace Jam.StateMachine.Walker
 
         public override void OnNotify(Notification notification)
         {
+            if(notification is Notification_Attacked)
+            {
+                entity.RigidBody.velocity = controller.Direction * controller.Speed * 1.2f;
+            }
 
         }
 

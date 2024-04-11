@@ -2,24 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Jam.Managers;
 
 namespace Jam.StateMachine.Tosser
 {
     /// <summary>
     /// Tosser will attempt to throw out up to n trashes before leaving the scene.
     /// </summary>
+
     public class StateMachineController_Tosser : StateMachineController
     {
         protected override State entryState { get { return new State_Tosser_Idle(); } }
 
-        private float[] speedRange = { 1.0f, 3.0f }; 
+        private float[] speedRange = { 3.0f, 5.0f }; 
         private float speed = 0.0f;
 
         protected override void Awake()
         {
-            base.Awake();
-
             speed = Random.Range(speedRange[0], speedRange[1]);
+
+            base.Awake();
         }
 
 
@@ -30,6 +32,7 @@ namespace Jam.StateMachine.Tosser
         {
             var obj = new GameObject();
             obj.AddComponent<SpriteRenderer>().sprite = sprite;
+            obj.transform.localScale = Vector3.one * 0.1f;
 
             obj.transform.position = entity.transform.position;
         }
@@ -58,22 +61,10 @@ namespace Jam.StateMachine.Tosser
             return CurrentMoveTransitionCount >= MaxMoveTransitionCount;
         }
 
-        /// <summary>
-        /// Check if the tosser should toss, determined randomly
-        /// </summary>
-        /// <param name="likeliness">Probability of tossing, range between [0 ~ 1]</param>
-        /// <returns></returns>
-        public bool ShouldTossByRandom(float likeliness)
+        public override void OnRemoved()
         {
-            return Random.Range(0.0f, 1.0f) <= likeliness;
+            PlayManager.Instance.TosserCount--;
         }
-
-
-
-
-
-
-
     }
 
 }

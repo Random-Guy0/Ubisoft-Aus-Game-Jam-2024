@@ -15,19 +15,19 @@ namespace Jam.StateMachine.Tosser
     public class State_Tosser_Move : State<StateMachineController_Tosser, NavEntity>
     {
 
-        private float walkDuration;
+        private float walkDuration = 1.5f;
 
         public override void OnEnter()
         {
             entity.NavMeshAgent.isStopped = false;
 
-            if(!entity.NavMeshAgent.SetDestination(entity.GetSampledPosition(10.0f)))
+            if(!entity.NavMeshAgent.SetDestination(entity.GetSampledPosition(5.0f, 1.5f, 0.3f)))
             {
                 Debug.LogWarning("NavMeshAgent failed to set a destination. This should not happen.", entity.gameObject);
             }
 
 
-            walkDuration = 3.0f;
+            entity.NavMeshAgent.speed = controller.Speed;
             Debug.Log("Tosser: Move", entity.gameObject);
         }
 
@@ -39,11 +39,17 @@ namespace Jam.StateMachine.Tosser
         public override void OnNotify(Notification notification)
         {
 
-            if(notification is Notification_Jaywalk)
+            if(notification is Notification_Jaywalk && controller.Probability(0.3f))
             {
                 controller.ChangeState(new State_Tosser_Jaywalk(notification as Notification_Jaywalk));
             }
-            
+            else if (notification is Notification_Attacked)
+            {
+                controller.ChangeState(new State_Tosser_Attacked());
+            }
+
+
+
         }
 
         public override void OnUpdate()
@@ -59,7 +65,7 @@ namespace Jam.StateMachine.Tosser
                 else
                 {
                     // Otherwise randomise.
-                    if (controller.ShouldTossByRandom(0f))
+                    if (controller.Probability(0.07f))
                     {
                         controller.ChangeState(new State_Tosser_Toss());
                     }

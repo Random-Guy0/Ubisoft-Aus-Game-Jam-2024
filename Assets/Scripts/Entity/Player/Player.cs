@@ -19,6 +19,8 @@ namespace Jam.Entities.Player
             base.Awake();
             PlayerController = GetComponent<PlayerController>();
             PlayerAttackHandler = GetComponent<PlayerAttackHandler>();
+
+            gameObject.layer = LAYER_PLAYER;
         }
     }
 }

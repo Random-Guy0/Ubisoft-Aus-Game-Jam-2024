@@ -23,7 +23,7 @@ namespace Jam.Entities.Player
 
         private void Awake()
         {
-            _entity = GetComponent<Player>();
+            _entity = GetComponent<Player>(); 
         }
 
         private void FixedUpdate()
