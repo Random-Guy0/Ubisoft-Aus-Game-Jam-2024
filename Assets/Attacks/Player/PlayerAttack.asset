@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe27a1d58590c05418e0b7250341c8be, type: 3}
   m_Name: PlayerAttack
   m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 5
-  <AttackStartDelay>k__BackingField: 0.3
-  <AttackDuration>k__BackingField: 0.5
-  <AttackEndDelay>k__BackingField: 0.2
+  <Damage>k__BackingField: 1
+  <AttackStartDelay>k__BackingField: 0.07
+  <AttackDuration>k__BackingField: 0.12
+  <AttackEndDelay>k__BackingField: 0.03
   <OriginOffset>k__BackingField: 0.5
-  <AttackDistance>k__BackingField: 1
+  <AttackSize>k__BackingField: {x: 1, y: 1}
+  <AttackDistance>k__BackingField: 0.25
   <LayerMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128

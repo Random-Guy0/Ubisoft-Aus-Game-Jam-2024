@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.AI;
+
 using Jam.Entities;
 
 namespace Jam.StateMachine
@@ -12,7 +14,6 @@ namespace Jam.StateMachine
     /// <remarks>
     /// Derived controllers define internal variables and override the currentState property.
     /// </remarks>
-    [RequireComponent(typeof(Entity))]
     public abstract class StateMachineController : MonoBehaviour
     {
         /// <summary>
@@ -23,9 +24,21 @@ namespace Jam.StateMachine
         
         protected Entity entity;
         protected State currentState = null;
+        protected Vector2 direction = Vector2.right;
+
+        public Vector2 Direction { get { return direction; } set { direction = value; } }
+
+
+        /// <summary>
+        /// Call this before OnDestory() to decrement entity count.
+        /// Can't directly do this in OnDestory() otherwise Unity will complain.
+        /// </summary>
+        public abstract void OnRemoved();
+
 
         protected virtual void Awake()
         {
+            
             entity = GetComponent<Entity>();
 
             currentState = entryState;
@@ -38,6 +51,9 @@ namespace Jam.StateMachine
 
             currentState.OnInit(this, entity);
         }
+
+
+
 
         // Start is called before the first frame update
         protected virtual void Start()
@@ -70,6 +86,16 @@ namespace Jam.StateMachine
         public void NotifyState(Notification notification)
         {
             currentState.OnNotify(notification);
+        }
+
+        /// <summary>
+        /// Probability for probability driven statemachine
+        /// </summary>
+        /// <param name="likeliness"></param>
+        /// <returns></returns>
+        public bool Probability(float likeliness)
+        {
+            return Random.Range(0.0f, 1.0f) <= likeliness;
         }
 
     }

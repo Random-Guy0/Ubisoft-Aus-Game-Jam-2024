@@ -5,12 +5,24 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
+using Jam.Managers;
 
 namespace Jam.Entities.Player
 {
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField]
+        AudioClip footstep1;
+        [SerializeField]
+        AudioClip footstep2;
+        [SerializeField]
+        AudioClip struck;
+
+        [SerializeField]
+        GameObject stunEffect;
+
+
         public bool CanMove { get; set; } = true;
 
         [SerializeField] private float speed = 5f;
@@ -18,12 +30,15 @@ namespace Jam.Entities.Player
 
         private Player _entity;
         private Vector2 _moveInput = Vector2.zero;
-        private Vector2 _velocity = Vector2.zero;
+        public Vector2 Velocity { get; set; } = Vector2.zero;
+        public bool PlayerHasMovementControl { get; set; } = true;
 
+        private float stoppingAcc = 3.0f;
+        float knockbackStartTime = 0.0f;
 
         private void Awake()
         {
-            _entity = GetComponent<Player>();
+            _entity = GetComponent<Player>(); 
         }
 
         private void FixedUpdate()
@@ -40,30 +55,47 @@ namespace Jam.Entities.Player
         {
             bool moving = _moveInput != Vector2.zero;
 
-            //accelerate and move
-            if (CanMove && moving)
+            if (PlayerHasMovementControl)
             {
-                Vector2 moveAmount = _moveInput * speed;
-                _velocity = Vector2.Lerp(_velocity, moveAmount, acceleration);
-                Vector2 absoluteVelocity = _velocity.Abs();
-                if (Vector2.Max(moveAmount.Abs() - (Vector2.one * 0.01f), absoluteVelocity) == absoluteVelocity)
+                stunEffect.SetActive(false);
+
+                //accelerate and move
+                if (CanMove && moving)
                 {
-                    _velocity = moveAmount;
+                    Vector2 moveAmount = _moveInput * speed;
+                    Velocity = Vector2.Lerp(Velocity, moveAmount, acceleration);
+                    Vector2 absoluteVelocity = Velocity.Abs();
+                    if (Vector2.Max(moveAmount.Abs() - (Vector2.one * 0.01f), absoluteVelocity) == absoluteVelocity)
+                    {
+                        Velocity = moveAmount;
+                    }
+                }
+
+                //decelerate and stop
+                if (!moving || !CanMove)
+                {
+                    Velocity = Vector2.Lerp(Velocity, Vector2.zero, acceleration);
+                    Vector2 absoluteVelocity = Velocity.Abs();
+                    if (Vector2.Min(Vector2.one * 0.01f, absoluteVelocity) == absoluteVelocity)
+                    {
+                        Velocity = Vector2.zero;
+                    }
+                }
+
+                _entity.RigidBody.velocity = Velocity;
+                knockbackStartTime = Time.time;
+            }
+            else
+            {
+                stunEffect.SetActive(true);
+                _entity.RigidBody.velocity -= _entity.RigidBody.velocity * stoppingAcc * Time.deltaTime;
+           
+                if(Time.time - knockbackStartTime > 1.0f)
+                {
+                    PlayerHasMovementControl = true;
                 }
             }
 
-            //decelerate and stop
-            if (!moving || !CanMove)
-            {
-                _velocity = Vector2.Lerp(_velocity, Vector2.zero, acceleration);
-                Vector2 absoluteVelocity = _velocity.Abs();
-                if (Vector2.Min(Vector2.one * 0.01f, absoluteVelocity) == absoluteVelocity)
-                {
-                    _velocity = Vector2.zero;
-                }
-            }
-
-            _entity.RigidBody.velocity = _velocity;
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -84,7 +116,7 @@ namespace Jam.Entities.Player
 
         private void Animate(Vector2 movement)
         {
-            if (!CanMove)
+            if (!CanMove || !PlayerHasMovementControl)
             {
                 movement = Vector2.zero;
             }
@@ -92,6 +124,25 @@ namespace Jam.Entities.Player
             _entity.Animator.SetFloat("MoveX", movement.x);
             _entity.Animator.SetFloat("MoveY", movement.y);
         }
+
+
+
+        public void PlayFootstep1()
+        {
+            SoundManager.Instance.PlaySound(footstep1, this.gameObject, 0.8f);
+        }
+
+        public void PlayFootstep2()
+        {
+            SoundManager.Instance.PlaySound(footstep2, this.gameObject, 0.8f);
+        }
+
+        public void PlayStruck()
+        {
+            SoundManager.Instance.PlaySound(struck, gameObject.transform.position);
+        }
+
+
     }
 }
 

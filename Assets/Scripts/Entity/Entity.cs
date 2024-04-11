@@ -13,10 +13,16 @@ namespace Jam.Entities
     [RequireComponent(typeof(Animator))]
     public class Entity : MonoBehaviour
     {
-        private Rigidbody2D rigidBody;
-        private BoxCollider2D boxCollider;
-        private SpriteRenderer spriteRenderer;
-        private Animator animator;
+        public const int LAYER_PLAYER = 6;
+        public const int LAYER_ENEMY = 7;
+        public const int LAYER_ENTITY = 8;
+        public const int LAYER_TRASH = 10;
+
+
+        protected Rigidbody2D rigidBody;
+        protected BoxCollider2D boxCollider;
+        protected SpriteRenderer spriteRenderer;
+        protected Animator animator;
 
 
         public Rigidbody2D RigidBody{ get { return rigidBody; } set { rigidBody = value; } }
@@ -29,6 +35,12 @@ namespace Jam.Entities
             boxCollider = GetComponent<BoxCollider2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
+
+            rigidBody.constraints |= RigidbodyConstraints2D.FreezeRotation;
+            gameObject.layer = LAYER_ENTITY;
+
+
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
         }
     }
 

@@ -14,7 +14,7 @@ namespace Jam.AttackSystem
         protected override void DealDamage(Vector2 direction, Vector2 position)
         {
             RaycastHit2D[] allHits = Physics2D.RaycastAll(position, direction, AttackDistance, LayerMask);
-            
+
             #if UNITY_EDITOR
             Debug.DrawRay(position, direction * AttackDistance);
             #endif

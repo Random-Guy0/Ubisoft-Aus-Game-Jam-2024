@@ -29,7 +29,6 @@ namespace Jam.AttackSystem
             set
             {
                 _direction = value;
-                Debug.Log(value);
             }
         }
         public Vector2 Origin { protected get; set; }

@@ -11,16 +11,12 @@ namespace Jam.StateMachine.Walking_Tosser
     {
 
         private float tossDelay;
-        private float enterTime;
 
         public override void OnEnter()
         {
-            entity.RigidBody.velocity = controller.Direction * controller.Speed;
+            entity.RigidBody.velocity = controller.Direction * controller.Speed * controller.Multiplier;
 
-            enterTime = Time.time;
             tossDelay = Random.Range(1.5f, 3.0f);
-
-            Debug.Log("Imma walk", entity.gameObject);
         }
 
         public override void OnExit()
@@ -38,7 +34,7 @@ namespace Jam.StateMachine.Walking_Tosser
 
         public override void OnUpdate()
         {
-            if(Time.time - enterTime >= tossDelay && !controller.Tossed)
+            if(GetTime() >= tossDelay && !controller.Tossed)
             {
                 controller.ChangeState(new State_Walking_Tosser_Toss());
             }
