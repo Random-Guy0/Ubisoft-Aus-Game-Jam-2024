@@ -18,7 +18,8 @@ namespace Jam.Entities.Player
 
         private Player _entity;
         private Vector2 _moveInput = Vector2.zero;
-        private Vector2 _velocity = Vector2.zero;
+        public Vector2 Velocity { get; set; } = Vector2.zero;
+        public bool PlayerHasMovementControl { get; set; } = true;
 
 
         private void Awake()
@@ -40,30 +41,33 @@ namespace Jam.Entities.Player
         {
             bool moving = _moveInput != Vector2.zero;
 
-            //accelerate and move
-            if (CanMove && moving)
+            if (PlayerHasMovementControl)
             {
-                Vector2 moveAmount = _moveInput * speed;
-                _velocity = Vector2.Lerp(_velocity, moveAmount, acceleration);
-                Vector2 absoluteVelocity = _velocity.Abs();
-                if (Vector2.Max(moveAmount.Abs() - (Vector2.one * 0.01f), absoluteVelocity) == absoluteVelocity)
+                //accelerate and move
+                if (CanMove && moving)
                 {
-                    _velocity = moveAmount;
+                    Vector2 moveAmount = _moveInput * speed;
+                    Velocity = Vector2.Lerp(Velocity, moveAmount, acceleration);
+                    Vector2 absoluteVelocity = Velocity.Abs();
+                    if (Vector2.Max(moveAmount.Abs() - (Vector2.one * 0.01f), absoluteVelocity) == absoluteVelocity)
+                    {
+                        Velocity = moveAmount;
+                    }
+                }
+
+                //decelerate and stop
+                if (!moving || !CanMove)
+                {
+                    Velocity = Vector2.Lerp(Velocity, Vector2.zero, acceleration);
+                    Vector2 absoluteVelocity = Velocity.Abs();
+                    if (Vector2.Min(Vector2.one * 0.01f, absoluteVelocity) == absoluteVelocity)
+                    {
+                        Velocity = Vector2.zero;
+                    }
                 }
             }
 
-            //decelerate and stop
-            if (!moving || !CanMove)
-            {
-                _velocity = Vector2.Lerp(_velocity, Vector2.zero, acceleration);
-                Vector2 absoluteVelocity = _velocity.Abs();
-                if (Vector2.Min(Vector2.one * 0.01f, absoluteVelocity) == absoluteVelocity)
-                {
-                    _velocity = Vector2.zero;
-                }
-            }
-
-            _entity.RigidBody.velocity = _velocity;
+            _entity.RigidBody.velocity = Velocity;
         }
 
         public void OnMove(InputAction.CallbackContext context)
