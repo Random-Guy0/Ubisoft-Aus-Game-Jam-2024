@@ -17,7 +17,8 @@ MonoBehaviour:
   <AttackDuration>k__BackingField: 0.1
   <AttackEndDelay>k__BackingField: 0
   <OriginOffset>k__BackingField: 0.5
-  <AttackDistance>k__BackingField: 1
+  <AttackSize>k__BackingField: {x: 1, y: 1}
+  <AttackDistance>k__BackingField: 0.25
   <LayerMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 128

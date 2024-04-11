@@ -7,7 +7,8 @@ namespace Jam.Entities.Player
 {
     public class PlayerTrashHandler : MonoBehaviour
     {
-        [SerializeField] private float grabDistance = 2.5f;
+        [SerializeField] private Vector2 grabSize = Vector2.one * 0.5f;
+        [SerializeField] private float grabDistance = 1f;
         [SerializeField] private LayerMask grabLayerMask;
         
         private Player _entity;
@@ -28,12 +29,17 @@ namespace Jam.Entities.Player
             {
                 hasGrabbedTrash = false;
                 grabbedTrash.Throw(direction);
+                grabbedTrash = null;
             }
             else
             {
-                RaycastHit2D raycast = Physics2D.Raycast(transform.position, direction, grabDistance, grabLayerMask);
+                Vector2 origin = (Vector2)transform.position + direction * grabDistance;
+                RaycastHit2D raycast = Physics2D.BoxCast(origin, grabSize, 0f, direction, grabDistance, grabLayerMask);
                 #if UNITY_EDITOR
-                Debug.DrawRay(transform.position, direction * grabDistance, Color.red, 0.5f);
+                Debug.DrawLine(new Vector3(origin.x + grabSize.x * 0.5f, origin.y + grabSize.y * 0.5f), new Vector3(origin.x - grabSize.x * 0.5f, origin.y + grabSize.y * 0.5f), Color.red);
+                Debug.DrawLine(new Vector3(origin.x + grabSize.x * 0.5f, origin.y + grabSize.y * 0.5f), new Vector3(origin.x + grabSize.x * 0.5f, origin.y - grabSize.y * 0.5f), Color.red);
+                Debug.DrawLine(new Vector3(origin.x + grabSize.x * 0.5f, origin.y - grabSize.y * 0.5f), new Vector3(origin.x - grabSize.x * 0.5f, origin.y - grabSize.y * 0.5f), Color.red);
+                Debug.DrawLine(new Vector3(origin.x - grabSize.x * 0.5f, origin.y + grabSize.y * 0.5f), new Vector3(origin.x - grabSize.x * 0.5f, origin.y - grabSize.y * 0.5f), Color.red); 
                 #endif
                 if (raycast && raycast.transform.TryGetComponent<Trash.Trash>(out Trash.Trash trash))
                 {
@@ -49,6 +55,23 @@ namespace Jam.Entities.Player
             if (context.performed)
             {
                 InteractWithTrash();
+            }
+        }
+
+        private void Update()
+        {
+            if (grabbedTrash != null)
+            {
+                Vector2 direction = _entity.PlayerAttackHandler.AttackDirection;
+
+                if (direction == Vector2.up)
+                {
+                    grabbedTrash.HideBehindPlayer();
+                }
+                else
+                {
+                    grabbedTrash.ShowInFrontOfPlayer();
+                }
             }
         }
     }

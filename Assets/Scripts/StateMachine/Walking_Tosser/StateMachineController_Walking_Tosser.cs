@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.AI;
 
 using Jam.Entities.Enemy;
+using Jam.Entities.Trash;
 using Jam.Managers;
 
 namespace Jam.StateMachine.Walking_Tosser
 {
     public class StateMachineController_Walking_Tosser : StateMachineController
     {
+        [SerializeField] private Trash trash;
+        
         protected override State entryState { get { return new State_Walking_Tosser_Walk(); } }
 
         private float[] speedRange = { 2.0f, 4.0f };
@@ -22,18 +25,10 @@ namespace Jam.StateMachine.Walking_Tosser
         public bool Tossed { get { return tossed; } set { tossed = value; } }
 
         public float TossDelay { get { return tossDelay; } }
-
-
-        [SerializeField]
-        Sprite sprite;
-        // Temp Func for demonstration purpose
+        
         public void TossTrash()
         {
-            var obj = new GameObject();
-            obj.AddComponent<SpriteRenderer>().sprite = sprite;
-            obj.transform.localScale = Vector3.one * 0.1f;
-
-            obj.transform.position = entity.transform.position;
+            Instantiate(trash, transform.position, Quaternion.identity);
         }
 
 

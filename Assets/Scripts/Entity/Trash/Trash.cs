@@ -44,12 +44,12 @@ namespace Jam.Entities.Trash
 
         public void HideBehindPlayer()
         {
-            SpriteRenderer.sortingOrder = -1;
+            SpriteRenderer.sortingOrder = 0;
         }
 
         public void ShowInFrontOfPlayer()
         {
-            SpriteRenderer.sortingOrder = 1;
+            SpriteRenderer.sortingOrder = 2;
         }
 
         private void Update()

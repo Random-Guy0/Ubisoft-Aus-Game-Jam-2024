@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Jam.Entities.Trash;
 using UnityEngine;
 
 using Jam.Managers;
@@ -12,6 +13,8 @@ namespace Jam.StateMachine.Tosser
 
     public class StateMachineController_Tosser : StateMachineController
     {
+        [SerializeField] private Trash trash;
+        
         protected override State entryState { get { return new State_Tosser_Idle(); } }
 
         private float[] speedRange = { 3.0f, 5.0f }; 
@@ -23,18 +26,10 @@ namespace Jam.StateMachine.Tosser
 
             base.Awake();
         }
-
-
-        [SerializeField]
-        Sprite sprite;
-        // Temp Func for demonstration purpose
+        
         public void TossTrash()
         {
-            var obj = new GameObject();
-            obj.AddComponent<SpriteRenderer>().sprite = sprite;
-            obj.transform.localScale = Vector3.one * 0.1f;
-
-            obj.transform.position = entity.transform.position;
+            Instantiate(trash, transform.position, Quaternion.identity);
         }
 
 

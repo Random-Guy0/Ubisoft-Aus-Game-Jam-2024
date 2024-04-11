@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1940183434, guid: 2c98f5bef5a7e0246afe6653371f8663, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -144,7 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d3cfe434efa4f88b7d590e0a192a8b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabDistance: 1
+  grabSize: {x: 0.75, y: 0.75}
+  grabDistance: 0.25
   grabLayerMask:
     serializedVersion: 2
     m_Bits: 512
