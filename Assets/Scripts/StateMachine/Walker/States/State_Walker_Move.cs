@@ -32,7 +32,7 @@ namespace Jam.StateMachine.Walker
         {
             if(notification is Notification_Attacked)
             {
-                entity.RigidBody.velocity = controller.Direction * controller.Speed * 1.2f;
+                entity.RigidBody.velocity = controller.Direction * controller.Speed * 1.8f;
             }
 
         }

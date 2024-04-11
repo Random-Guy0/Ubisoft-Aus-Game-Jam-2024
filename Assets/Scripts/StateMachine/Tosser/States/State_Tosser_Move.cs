@@ -28,7 +28,6 @@ namespace Jam.StateMachine.Tosser
 
 
             entity.NavMeshAgent.speed = controller.Speed;
-            Debug.Log("Tosser: Move", entity.gameObject);
         }
 
         public override void OnExit()
@@ -48,6 +47,10 @@ namespace Jam.StateMachine.Tosser
                 controller.ChangeState(new State_Tosser_Attacked());
             }
 
+            if (notification is Notification_HealthZero)
+            {
+                controller.ChangeState(new State_Tosser_Leave());
+            }
 
 
         }

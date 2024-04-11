@@ -9,12 +9,21 @@ namespace Jam.Entities
     public class HealthBase_Test : HealthBase
     {
 
-        private void Awake()
+        protected override void Awake()
         {
-            OnTakeDamage += (dmg) => GetComponent<StateMachineController>().NotifyState(new Notification_Attacked());
+            base.Awake();
+            OnTakeDamage += (dmg) =>
+            {
+                GetComponent<StateMachineController>().NotifyState(new Notification_Attacked());
+                Debug.Log(dmg);
+            };
+
         }
+
         protected override void Die()
         {
+            GetComponent<StateMachineController>().NotifyState(new Notification_HealthZero());
+            Debug.Log("Triggered");
             
         }
     }

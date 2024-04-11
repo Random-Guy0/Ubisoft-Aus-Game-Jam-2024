@@ -15,10 +15,12 @@ namespace Jam.StateMachine.Tosser
     {
         [SerializeField] private Trash trash;
         
-        protected override State entryState { get { return new State_Tosser_Idle(); } }
+        protected override State entryState { get { return new State_Tosser_Move(); } }
 
         private float[] speedRange = { 3.0f, 5.0f }; 
         private float speed = 0.0f;
+
+  
 
         protected override void Awake()
         {

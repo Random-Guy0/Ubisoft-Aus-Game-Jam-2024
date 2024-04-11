@@ -14,11 +14,9 @@ namespace Jam.StateMachine.Walking_Tosser
 
         public override void OnEnter()
         {
-            entity.RigidBody.velocity = controller.Direction * controller.Speed;
+            entity.RigidBody.velocity = controller.Direction * controller.Speed * controller.Multiplier;
 
             tossDelay = Random.Range(1.5f, 3.0f);
-
-            Debug.Log("Imma walk", entity.gameObject);
         }
 
         public override void OnExit()

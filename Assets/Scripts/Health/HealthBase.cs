@@ -13,7 +13,7 @@ namespace Jam.Entities
 
         [SerializeField] private int maxHealth;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             Health = maxHealth;
         }

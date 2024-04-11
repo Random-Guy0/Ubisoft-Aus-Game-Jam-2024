@@ -16,7 +16,7 @@ namespace Jam.Entities
         public const int LAYER_PLAYER = 6;
         public const int LAYER_ENEMY = 7;
         public const int LAYER_ENTITY = 8;
-        public const int LAYER_TRASH = 9;
+        public const int LAYER_TRASH = 10;
 
 
         protected Rigidbody2D rigidBody;
@@ -38,6 +38,9 @@ namespace Jam.Entities
 
             rigidBody.constraints |= RigidbodyConstraints2D.FreezeRotation;
             gameObject.layer = LAYER_ENTITY;
+
+
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
         }
     }
 
