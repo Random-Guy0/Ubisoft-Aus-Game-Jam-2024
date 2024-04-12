@@ -14,8 +14,8 @@ namespace Jam.Entities.Player
         
         private Player _entity;
 
-        private bool hasGrabbedTrash = false;
-        private Trash.Trash grabbedTrash;
+        public bool hasGrabbedTrash = false;
+        public Trash.Trash grabbedTrash;
 
         private void Awake()
         {

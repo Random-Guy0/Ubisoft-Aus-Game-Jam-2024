@@ -95,6 +95,9 @@ namespace Jam.StateMachine.Vehicle
                     dir.Normalize();
 
                     Player playerEntity = collision.gameObject.GetComponent<Player>();
+                    playerEntity.PlayerTrashHandler.grabbedTrash?.Throw(playerEntity.PlayerAttackHandler.AttackDirection);
+                    playerEntity.PlayerTrashHandler.grabbedTrash = null;
+                    playerEntity.PlayerTrashHandler.hasGrabbedTrash = false;
 
                     playerEntity.RigidBody.velocity = dir * knockBackIntensity;
 
