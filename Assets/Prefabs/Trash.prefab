@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6461966250830226861}
   - component: {fileID: 7503227866352709632}
   - component: {fileID: 8050414651445307522}
+  - component: {fileID: -8452876634551422075}
   m_Layer: 0
   m_Name: Trash
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1352750532129196475
 SpriteRenderer:
@@ -158,7 +159,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 0.6}
+  m_Size: {x: 0.4, y: 0.4}
   m_EdgeRadius: 0
 --- !u!95 &7503227866352709632
 Animator:
@@ -198,3 +199,17 @@ MonoBehaviour:
   - {fileID: 296572337, guid: 8c8ee47f338b325409776ab095b18081, type: 3}
   - {fileID: -742083151, guid: 8c8ee47f338b325409776ab095b18081, type: 3}
   - {fileID: 1812599566, guid: 8c8ee47f338b325409776ab095b18081, type: 3}
+--- !u!114 &-8452876634551422075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086509757473001309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 497954555ea10304f80880d561a144ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minPosition: {x: -9, y: -5}
+  maxPosition: {x: 9, y: 1.75}

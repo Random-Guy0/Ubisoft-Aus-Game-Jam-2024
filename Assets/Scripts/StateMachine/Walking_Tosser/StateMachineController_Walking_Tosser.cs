@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Jam.Entities;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +12,7 @@ namespace Jam.StateMachine.Walking_Tosser
 {
     public class StateMachineController_Walking_Tosser : StateMachineController
     {
+        [SerializeField] private RuntimeAnimatorController[] potentialAnimators;
         [SerializeField] private Trash trash;
         
         protected override State entryState { get { return new State_Walking_Tosser_Walk(); } }
@@ -40,11 +42,22 @@ namespace Jam.StateMachine.Walking_Tosser
             speed = Random.Range(speedRange[0], speedRange[1]);
 
             base.Awake();
+            
+            int randomAnimator = Random.Range(0, potentialAnimators.Length);
+            entity.Animator.runtimeAnimatorController = potentialAnimators[randomAnimator];
         }
 
         public override void OnRemoved()
         {
             PlayManager.Instance.WalkingTosserCount--;
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            Vector2 velocity = entity.RigidBody.velocity;
+            entity.Animator.SetFloat("MoveX", velocity.x);
+            entity.Animator.SetFloat("MoveY", velocity.y);
         }
     }
 

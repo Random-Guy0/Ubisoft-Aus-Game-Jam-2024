@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Jam.Entities;
 using Jam.Entities.Trash;
 using UnityEngine;
 
@@ -14,12 +15,14 @@ namespace Jam.StateMachine.Tosser
     public class StateMachineController_Tosser : StateMachineController
     {
         [SerializeField] private Trash trash;
+        [SerializeField] private RuntimeAnimatorController[] potentialAnimators;
         
         protected override State entryState { get { return new State_Tosser_Move(); } }
 
         private float[] speedRange = { 3.0f, 5.0f }; 
         private float speed = 0.0f;
 
+        private Vector2 _previousPosition;
   
 
         protected override void Awake()
@@ -27,6 +30,10 @@ namespace Jam.StateMachine.Tosser
             speed = Random.Range(speedRange[0], speedRange[1]);
 
             base.Awake();
+
+            int randomAnimator = Random.Range(0, potentialAnimators.Length);
+            entity.Animator.runtimeAnimatorController = potentialAnimators[randomAnimator];
+            _previousPosition = entity.transform.position;
         }
         
         public void TossTrash()
@@ -61,6 +68,24 @@ namespace Jam.StateMachine.Tosser
         public override void OnRemoved()
         {
             PlayManager.Instance.TosserCount--;
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            Vector2 position = entity.transform.position;
+            Vector2 velocity = (position - _previousPosition) / Time.deltaTime;
+            if (Mathf.Abs(velocity.x) >= Mathf.Abs(velocity.y))
+            {
+                velocity.y = 0f;
+            }
+            else
+            {
+                velocity.x = 0f;
+            }
+            entity.Animator.SetFloat("MoveX", velocity.x);
+            entity.Animator.SetFloat("MoveY", velocity.y);
+            _previousPosition = position;
         }
     }
 
