@@ -22,6 +22,8 @@ namespace Jam.Entities.Player
         [SerializeField]
         GameObject stunEffect;
 
+        [SerializeField] private AudioClip gameOverSound;
+
 
         public bool CanMove { get; set; } = true;
 
@@ -55,6 +57,7 @@ namespace Jam.Entities.Player
         private void Awake()
         {
             _entity = GetComponent<Player>();
+            PlayManager.Instance.OnGameOver += GameOver;
         }
 
         private void FixedUpdate()
@@ -79,8 +82,6 @@ namespace Jam.Entities.Player
 
             if (PlayerHasMovementControl)
             {
-                stunEffect.SetActive(false);
-
                 //accelerate and move
                 if (CanMove && moving)
                 {
@@ -117,6 +118,7 @@ namespace Jam.Entities.Player
                 {
                     PlayerHasMovementControl = true;
                     _entity.PlayerAttackHandler.CanAttack = true;
+                    stunEffect.SetActive(false);
                 }
             }
 
@@ -237,7 +239,13 @@ namespace Jam.Entities.Player
             SoundManager.Instance.PlaySound(struck, gameObject.transform.position);
         }
 
-
+        private void GameOver()
+        {
+            CanMove = false;
+            _entity.Animator.SetBool("Defeated", true);
+            stunEffect.SetActive(true);
+            SoundManager.Instance.PlaySound(gameOverSound, gameObject);
+        }
     }
 }
 

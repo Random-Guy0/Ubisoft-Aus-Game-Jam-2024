@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Jam.Entities;
-
+using Jam.Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -21,6 +21,7 @@ namespace Jam.Entities.Trash
         {
             base.Awake();
             gameObject.layer = LAYER_TRASH;
+            PlayManager.Instance.AddTrash();
         }
 
         private void Start()

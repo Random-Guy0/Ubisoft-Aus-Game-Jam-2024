@@ -39,7 +39,7 @@ Transform:
   m_Children:
   - {fileID: 1325781478274401241}
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2977316610380073775
 SpriteRenderer:
@@ -121,6 +121,7 @@ MonoBehaviour:
   footstep2: {fileID: 8300000, guid: 0f9ef6e3aee54eb43a7e9c2bf633cab3, type: 3}
   struck: {fileID: 8300000, guid: dfb64bdc0d5e16140a85162bbce427f9, type: 3}
   stunEffect: {fileID: 5871172599120877210}
+  gameOverSound: {fileID: 8300000, guid: c65a361ac00300c49be218b2c9b41861, type: 3}
   speed: 5
   acceleration: 0.6
 --- !u!114 &8055915376853859542
@@ -336,6 +337,8 @@ MonoBehaviour:
   grabLayerMask:
     serializedVersion: 2
     m_Bits: 1024
+  hasGrabbedTrash: 0
+  grabbedTrash: {fileID: 0}
 --- !u!1001 &6312116860612617216
 PrefabInstance:
   m_ObjectHideFlags: 0

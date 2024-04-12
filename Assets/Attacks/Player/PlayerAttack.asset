@@ -16,7 +16,7 @@ MonoBehaviour:
   <AttackStartDelay>k__BackingField: 0.1
   <AttackDuration>k__BackingField: 0.3
   <AttackEndDelay>k__BackingField: 0
-  <OriginOffset>k__BackingField: 0.5
+  <OriginOffset>k__BackingField: 0.25
   <HitEffect>k__BackingField: {fileID: 182327783658841718, guid: d65f0372ddcb9634d99d58e869fe1422, type: 3}
   <HitSound>k__BackingField: {fileID: 8300000, guid: dfb64bdc0d5e16140a85162bbce427f9, type: 3}
   <AttackSize>k__BackingField: {x: 1, y: 1}

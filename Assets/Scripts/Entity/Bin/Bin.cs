@@ -16,7 +16,8 @@ namespace Jam.Entities.Bin
             if (other.TryGetComponent(out Trash.Trash trash))
             {
                 SoundManager.Instance.PlaySound(collectSound, gameObject);
-                PlayManager.Instance.AddTrash();
+                PlayManager.Instance.AddScore();
+                PlayManager.Instance.RemoveTrash();
                 Destroy(trash.gameObject);
             }
         }

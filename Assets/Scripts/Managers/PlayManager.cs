@@ -11,7 +11,7 @@ namespace Jam.Managers
 
 
         // Maximum number of trash allowed to be present
-        public const int MAX_TRASH_COUNT = 7;
+        public const int MAX_TRASH_COUNT = 10;
         public const int MAX_WALKER_COUNT = 5;
         public const int MAX_TOSSER_COUNT = 3;
         public const int MAX_WALKING_TOSSER_COUNT = 5;
@@ -22,10 +22,15 @@ namespace Jam.Managers
         private int tosserCount = 0;
         private int walkingTosserCount = 0;
         private int vehicleCount = 0;
+        private int score = 0;
+        private int scoreMultiplier = 100;
+
+        private bool gameOver = false;
 
 
 
-        public int TrashCount { get { return trashCount; } }
+        public int TrashCount => trashCount;
+        public int Score => score;
         public int WalkerCount { get { return walkerCount; } set { walkerCount = value; } }
         public int TosserCount { get { return tosserCount; } set { tosserCount = value; } }
         public int WalkingTosserCount { get { return walkingTosserCount; } set { walkingTosserCount = value; } }
@@ -39,7 +44,15 @@ namespace Jam.Managers
         /// <summary>
         /// Fired if trashCount >= maxTrashCount.
         /// </summary>
-        public GameOver OnGameOver;
+        public event GameOver OnGameOver;
+
+        public delegate void TrashCountChange(int newTrashCount);
+
+        public event TrashCountChange OnTrashCountChange;
+
+        public delegate void ScoreChange(int newScore);
+
+        public event ScoreChange OnScoreChange;
 
 
         /// <summary>
@@ -50,11 +63,25 @@ namespace Jam.Managers
         public void AddTrash(int count=1)
         {
             trashCount += count;
+            OnTrashCountChange?.Invoke(trashCount);
 
-            if(trashCount >= MAX_TRASH_COUNT)
+            if(trashCount >= MAX_TRASH_COUNT && !gameOver)
             {
+                gameOver = true;
                 OnGameOver?.Invoke();
             }
+        }
+
+        public void RemoveTrash()
+        {
+            trashCount--;
+            OnTrashCountChange?.Invoke(trashCount);
+        }
+
+        public void AddScore()
+        {
+            score += scoreMultiplier;
+            OnScoreChange?.Invoke(score);
         }
 
         public bool AddWalker()
