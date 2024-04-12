@@ -1012,6 +1012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 674218640}
   - component: {fileID: 674218639}
+  - component: {fileID: 674218641}
   m_Layer: 0
   m_Name: SFX
   m_TagString: Untagged
@@ -1130,6 +1131,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &674218641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674218638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da421447ca1c5841b85c91dc8bc7390, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &887257904
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,6 +1770,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1433607062}
   - component: {fileID: 1433607061}
+  - component: {fileID: 1433607063}
   m_Layer: 0
   m_Name: Music
   m_TagString: Untagged
@@ -1875,6 +1889,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1433607063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433607060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5da421447ca1c5841b85c91dc8bc7390, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1435305572
 GameObject:
   m_ObjectHideFlags: 0

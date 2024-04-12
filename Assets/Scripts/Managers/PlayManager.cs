@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 namespace Jam.Managers
@@ -69,12 +70,15 @@ namespace Jam.Managers
             {
                 gameOver = true;
                 OnGameOver?.Invoke();
+                GameObject newGameObject = new GameObject();
+                newGameObject.AddComponent<FinalScore>().Score = score;
+                Invoke(nameof(ChangeToGameOverScene), 5f);
             }
         }
 
-        public void RemoveTrash()
+        public void RemoveTrash(int count = 1)
         {
-            trashCount--;
+            trashCount -= count;
             OnTrashCountChange?.Invoke(trashCount);
         }
 
@@ -120,10 +124,10 @@ namespace Jam.Managers
             return true;
         }
 
-
-
-
-
+        private void ChangeToGameOverScene()
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 
 }

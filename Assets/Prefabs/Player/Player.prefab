@@ -351,6 +351,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StunEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 496447677182702234, guid: 9ec525843fe5e7e41b472daccf810f07, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5043815999317944281, guid: 9ec525843fe5e7e41b472daccf810f07, type: 3}
       propertyPath: m_RootOrder
       value: -1

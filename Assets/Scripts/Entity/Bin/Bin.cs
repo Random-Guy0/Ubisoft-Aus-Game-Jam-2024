@@ -13,8 +13,9 @@ namespace Jam.Entities.Bin
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out Trash.Trash trash))
+            if (other.TryGetComponent(out Trash.Trash trash) && !trash.Destroyed)
             {
+                trash.Destroyed = true;
                 SoundManager.Instance.PlaySound(collectSound, gameObject);
                 PlayManager.Instance.AddScore();
                 PlayManager.Instance.RemoveTrash();

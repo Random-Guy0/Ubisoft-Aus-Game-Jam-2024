@@ -33,6 +33,7 @@ namespace Jam.StateMachine.Walking_Tosser
         
         public void TossTrash()
         {
+            PlayManager.Instance.AddTrash();
             Instantiate(trash, transform.position, Quaternion.identity);
         }
 

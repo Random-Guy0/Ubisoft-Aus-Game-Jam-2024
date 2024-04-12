@@ -11,6 +11,8 @@ namespace Jam.Entities.Trash
 {
     public class Trash : Entity
     {
+        public bool Destroyed { get; set; } = false;
+        
         [SerializeField] private float throwForce = 3f;
         [SerializeField] private Sprite[] trashSprites;
         
@@ -21,7 +23,6 @@ namespace Jam.Entities.Trash
         {
             base.Awake();
             gameObject.layer = LAYER_TRASH;
-            PlayManager.Instance.AddTrash();
         }
 
         private void Start()
