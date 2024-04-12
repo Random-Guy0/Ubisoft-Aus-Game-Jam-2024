@@ -32,6 +32,7 @@ namespace Jam.StateMachine.Walker
         {
             if(notification is Notification_Attacked)
             {
+                controller.dizzyEffect.SetActive(true);
                 entity.RigidBody.velocity = controller.Direction * controller.Speed * 1.8f;
             }
 

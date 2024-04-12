@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Jam.Managers;
 using UnityEngine;
 
 namespace Jam.AttackSystem
@@ -23,6 +24,7 @@ namespace Jam.AttackSystem
         [field: SerializeField] public float OriginOffset { get; private set; } = 0f;
         
         [field: SerializeField] public GameObject HitEffect { get; private set; }
+        [field: SerializeField] public AudioClip HitSound { get; private set; }
 
         private Vector2 _direction;
         public Vector2 Direction
@@ -45,6 +47,7 @@ namespace Jam.AttackSystem
             yield return new WaitForSeconds(AttackStartDelay);
 
             GameObject hitEffectInstance = Instantiate(HitEffect);
+            SoundManager.Instance.PlaySound(HitSound, SoundManager.Instance.gameObject);
 
             targetsHit = new List<Transform>();
 

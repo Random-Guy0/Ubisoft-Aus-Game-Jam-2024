@@ -14,6 +14,7 @@ namespace Jam.StateMachine.Walking_Tosser
     {
         [SerializeField] private RuntimeAnimatorController[] potentialAnimators;
         [SerializeField] private Trash trash;
+        [SerializeField] public GameObject dizzyEffect;
         
         protected override State entryState { get { return new State_Walking_Tosser_Walk(); } }
 

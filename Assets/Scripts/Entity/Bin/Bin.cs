@@ -9,10 +9,13 @@ namespace Jam.Entities.Bin
 {
     public class Bin : Entity
     {
+        [SerializeField] private AudioClip collectSound;
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.TryGetComponent(out Trash.Trash trash))
             {
+                SoundManager.Instance.PlaySound(collectSound, gameObject);
                 PlayManager.Instance.AddTrash();
                 Destroy(trash.gameObject);
             }

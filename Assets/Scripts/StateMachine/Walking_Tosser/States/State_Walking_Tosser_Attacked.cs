@@ -42,6 +42,7 @@ namespace Jam.StateMachine.Walking_Tosser
         {
             if (notification is Notification_HealthZero)
             {
+                controller.dizzyEffect.SetActive(true);
                 controller.Tossed = true;
                 controller.Multiplier = 1.8f;
                 controller.ChangeState(new State_Walking_Tosser_Walk());

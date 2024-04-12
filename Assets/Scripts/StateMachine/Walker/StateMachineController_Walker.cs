@@ -14,6 +14,7 @@ namespace Jam.StateMachine.Walker
     public class StateMachineController_Walker : StateMachineController
     {
         [SerializeField] private RuntimeAnimatorController[] potentialAnimators;
+        [SerializeField] public GameObject dizzyEffect;
         protected override State entryState { get { return new State_Walker_Move(); } }
 
         private float[] speedRange = { 2.5f, 4.0f };

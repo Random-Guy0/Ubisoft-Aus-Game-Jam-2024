@@ -53,14 +53,14 @@ namespace Jam.Entities.Player
 
         protected override void BeforeAttack()
         {
-            _entity.PlayerController.CanMove = false;
+            //_entity.PlayerController.CanMove = false;
             _entity.Animator.SetBool("Attacking", true);
             _entity.Animator.SetFloat("AttackSpeed", 1f);
         }
 
         protected override void AfterAttack()
         {
-            _entity.PlayerController.CanMove = true;
+            //_entity.PlayerController.CanMove = true;
             _entity.Animator.SetBool("Attacking", false);
 
         }

@@ -43,6 +43,7 @@ namespace Jam.StateMachine.Tosser
         {
             if(notification is Notification_HealthZero)
             {
+                controller.dizzyEffect.SetActive(true);
                 controller.ChangeState(new State_Tosser_Leave());
             }
 
