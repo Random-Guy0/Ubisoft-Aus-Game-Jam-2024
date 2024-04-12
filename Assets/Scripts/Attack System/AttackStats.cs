@@ -21,6 +21,8 @@ namespace Jam.AttackSystem
         public float AttackEndDelay { get; private set; } = 0.2f;
 
         [field: SerializeField] public float OriginOffset { get; private set; } = 0f;
+        
+        [field: SerializeField] public GameObject HitEffect { get; private set; }
 
         private Vector2 _direction;
         public Vector2 Direction
@@ -42,6 +44,8 @@ namespace Jam.AttackSystem
             
             yield return new WaitForSeconds(AttackStartDelay);
 
+            GameObject hitEffectInstance = Instantiate(HitEffect);
+
             targetsHit = new List<Transform>();
 
             float attackTime = 0.0f;
@@ -50,10 +54,16 @@ namespace Jam.AttackSystem
                 attackTime += Time.deltaTime;
                 Vector2 position = GetAttackPosition(Direction, Origin);
                 DealDamage(Direction, position);
+
+                hitEffectInstance.transform.position = position;
+                float angle = Vector2.SignedAngle(Vector2.right, Direction);
+                hitEffectInstance.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+                
                 yield return null;
             }
 
             yield return new WaitForSeconds(AttackEndDelay);
+            Destroy(hitEffectInstance);
         }
         
         protected abstract void DealDamage(Vector2 direction, Vector2 position);

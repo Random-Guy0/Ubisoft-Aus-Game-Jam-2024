@@ -87,12 +87,14 @@ namespace Jam.Entities.Player
             }
             else
             {
+                _entity.PlayerAttackHandler.CanAttack = false;
                 stunEffect.SetActive(true);
                 _entity.RigidBody.velocity -= _entity.RigidBody.velocity * stoppingAcc * Time.deltaTime;
            
                 if(Time.time - knockbackStartTime > 1.0f)
                 {
                     PlayerHasMovementControl = true;
+                    _entity.PlayerAttackHandler.CanAttack = true;
                 }
             }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using Jam.Entities.Trash;
 using UnityEngine.InputSystem;
@@ -23,7 +24,10 @@ namespace Jam.Entities.Player
 
         private void InteractWithTrash()
         {
+            _entity.PlayerAttackHandler.CanAttack = false;
             Vector2 direction = _entity.PlayerAttackHandler.AttackDirection;
+            _entity.Animator.SetFloat("AttackSpeed", 5f);
+            _entity.Animator.SetBool("Attacking", true);
             
             if (hasGrabbedTrash)
             {
@@ -48,11 +52,20 @@ namespace Jam.Entities.Player
                     grabbedTrash = trash;
                 }
             }
+
+            StartCoroutine(StopAttackAnimation());
+        }
+
+        private IEnumerator StopAttackAnimation()
+        {
+            yield return new WaitForSeconds(0.1f);
+            _entity.Animator.SetBool("Attacking", false);
+            _entity.PlayerAttackHandler.CanAttack = true;
         }
 
         public void OnInteractWithTrash(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.performed && _entity.PlayerAttackHandler.CanAttack)
             {
                 InteractWithTrash();
             }

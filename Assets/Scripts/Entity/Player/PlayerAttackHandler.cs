@@ -20,7 +20,7 @@ namespace Jam.Entities.Player
 
         private void Start()
         {
-            AttackDirection = Vector2.right;
+            AttackDirection = Vector2.down;
             AttackOrigin = transform.position;
         }
 
@@ -54,11 +54,15 @@ namespace Jam.Entities.Player
         protected override void BeforeAttack()
         {
             _entity.PlayerController.CanMove = false;
+            _entity.Animator.SetBool("Attacking", true);
+            _entity.Animator.SetFloat("AttackSpeed", 1f);
         }
 
         protected override void AfterAttack()
         {
             _entity.PlayerController.CanMove = true;
+            _entity.Animator.SetBool("Attacking", false);
+
         }
 
         private void Update()
