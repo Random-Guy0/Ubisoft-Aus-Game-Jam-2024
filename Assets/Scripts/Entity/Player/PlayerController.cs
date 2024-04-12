@@ -36,18 +36,40 @@ namespace Jam.Entities.Player
         private float stoppingAcc = 3.0f;
         float knockbackStartTime = 0.0f;
 
+
+        // Up, Down, Left Right maps to 1, 2, 3, 4
+        // For some reason On Move is called twice
+        private List<int> hiddenCommand = new List<int>()
+        {
+            1, 1,
+            2, 2,
+            3, 4,
+            3, 4,
+        };
+
+        int consecCommand = 0;
+        bool ignoreCommand = false;
+
+        bool lockInput = false;
+
         private void Awake()
         {
-            _entity = GetComponent<Player>(); 
+            _entity = GetComponent<Player>();
         }
 
         private void FixedUpdate()
         {
+            if (lockInput)
+                return;
+
             Move();
         }
 
         private void Update()
         {
+            if (lockInput)
+                return;
+
             Animate(_moveInput);
         }
 
@@ -111,6 +133,68 @@ namespace Jam.Entities.Player
                 newMoveInput.x = 0;
             }
 
+            bool isZero = newMoveInput.x == 0 && newMoveInput.y == 0;
+
+            if(!ignoreCommand && !isZero)
+            {
+                ignoreCommand = true;
+
+                int move = 0;
+
+                if(newMoveInput == Vector2.up)
+                {
+                    move = 1;
+                }
+                else if(newMoveInput == Vector2.down)
+                {
+                    move = 2;
+                }
+                else if(newMoveInput == Vector2.left)
+                {
+                    move = 3;
+                }
+                else if(newMoveInput == Vector2.right)
+                {
+                    move = 4;
+                }
+
+                if (hiddenCommand[consecCommand] == move)
+                {
+                    consecCommand++;
+
+                    if(consecCommand >= hiddenCommand.Count)
+                    {
+                        consecCommand = 0;
+
+                        // Look at Chain of responsibility go!
+                        // (crunch edition)
+                        if(PlayerHasMovementControl)
+                        {
+                            _entity.Animator.SetTrigger("DoDance");
+                            _entity.RigidBody.velocity = Vector2.zero;
+                            _entity.Animator.SetFloat("MoveX", 0);
+                            _entity.Animator.SetFloat("MoveY", 0);
+                            lockInput = true;
+                        }
+
+
+                    }
+
+                }
+                else
+                {
+                    consecCommand = 0;
+                }
+                
+
+
+
+            }
+            else if(!isZero)
+            {
+                ignoreCommand = false;
+            }
+
             _moveInput = newMoveInput;
         }
 
@@ -120,12 +204,21 @@ namespace Jam.Entities.Player
             {
                 movement = Vector2.zero;
             }
+
             
             _entity.Animator.SetFloat("MoveX", movement.x);
             _entity.Animator.SetFloat("MoveY", movement.y);
         }
 
 
+        public void LockInput()
+        {
+            lockInput = true;
+        }
+        public void UnlockInput()
+        {
+            lockInput = false;
+        }
 
         public void PlayFootstep1()
         {

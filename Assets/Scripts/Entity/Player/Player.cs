@@ -15,6 +15,9 @@ namespace Jam.Entities.Player
         public PlayerAttackHandler PlayerAttackHandler { get; private set; }
         public PlayerTrashHandler PlayerTrashHandler { get; private set; }
 
+
+
+
         protected override void Awake()
         {
             base.Awake();
