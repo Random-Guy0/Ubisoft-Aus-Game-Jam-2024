@@ -53,6 +53,15 @@ namespace Jam.StateMachine.Vehicle
 
         }
 
+        protected override void Start()
+        {
+            base.Start();
+            if (Direction.x > 0f)
+            {
+                entity.SpriteRenderer.flipX = true;
+            }
+        }
+
         protected override void Update()
         {
             base.Update();
